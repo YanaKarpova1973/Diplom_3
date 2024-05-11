@@ -13,6 +13,7 @@ class URLS:
 class BaseRequests:
     host = URLS.MAIN_PAGE_URL
 
+    @allure.step('Подготовка запроса Post')
     def exec_post_request(self, url, data):
         response = requests.post(url=url, data=data)
         if 'application/json' in response.headers['Content-Type']:
@@ -20,6 +21,7 @@ class BaseRequests:
         else:
             return response.text
 
+    @allure.step('Подготовка запроса DELETE')
     def exec_delete_request(self, url, token):
         headers = {"Content-Type": "application/json", 'authorization': token}
         response = requests.delete(url=url, headers=headers)

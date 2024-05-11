@@ -33,10 +33,15 @@ class MainFunctionalityPage(BasePage):
     @allure.step('Проверка видимости модального окна ингредиента')
     def check_modal_opened(self):
         try:
-            self.driver.find_element(By.XPATH, MainFunctionalityLocators.INGREDIENT_MODAL_XPATH)
+            self.find_element_waiting(MainFunctionalityLocators.INGREDIENT_MODAL_XPATH)
+            #self.driver.find_element(By.XPATH, MainFunctionalityLocators.INGREDIENT_MODAL_NOT_XPATH)
         except NoSuchElementException:
             return False
         return True
+
+    @allure.step('Проверка невидимости модального окна ингредиента')
+    def check_modal_closed(self):
+        return self.wait_until_element_not_present(MainFunctionalityLocators.CLOSE_MODAL)
 
     @allure.step('Ожидание загрузки заголовка модального окна ингредиента')
     def wait_modal_header_loaded(self):
@@ -44,11 +49,12 @@ class MainFunctionalityPage(BasePage):
 
     @allure.step('Закрыть модальное окно ингредиента')
     def click_close_modal(self):
-        self.wait_for_element_loaded(MainFunctionalityLocators.CLOSE_MODAL).click()
+        self.click_element_located(MainFunctionalityLocators.CLOSE_MODAL)
+        self.wait_until_element_not_present(MainFunctionalityLocators.CLOSE_MODAL)
 
     @allure.step('Получение значения счетчика ингредиента')
     def get_first_ingredient_counter_value(self):
-        return self.driver.find_element(*MainFunctionalityLocators.FIRST_INGREDIENT_COUNTER_XPATH).text
+        return self.get_text_by_locator(MainFunctionalityLocators.FIRST_INGREDIENT_COUNTER_XPATH)       #self.driver.find_element(*MainFunctionalityLocators.FIRST_INGREDIENT_COUNTER_XPATH).text
 
     @allure.step('Добавление первого ингредиента в корзину')
     def drag_n_drop_first_ingredient_to_basket(self):
@@ -61,7 +67,7 @@ class MainFunctionalityPage(BasePage):
     @allure.step('Получение значения ID заказа при его оформлении')
     def get_order_id_when_created(self):
         self.wait_until_element_not_present(MainFunctionalityLocators.TEMPORARY_ORDER_MODAL_HEADER)
-        return self.driver.find_element(By.XPATH, MainFunctionalityLocators.ORDER_ID_XPATH).text
+        return self.driver.find_element(By.XPATH, MainFunctionalityLocators.ORDER_ID_XPATH).text     #self.get_text_by_locator(MainFunctionalityLocators.ORDER_ID_XPATH)
 
     @allure.step('Создание заказа')
     def make_order(self):

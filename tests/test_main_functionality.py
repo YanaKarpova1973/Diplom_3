@@ -2,6 +2,7 @@ from pages.main_functionality_page import MainFunctionalityPage
 from pages.order_list_page import OrderListPage
 import allure
 from datas import URLS
+import time
 
 class TestMainFunctionality:
     @allure.title('Переход из Личного кабинета в Конструктор')
@@ -42,7 +43,7 @@ class TestMainFunctionality:
         page.click_first_ingredient()
         page.wait_modal_header_loaded()
         page.click_close_modal()
-        assert not page.check_modal_opened()
+        assert page.check_modal_closed()
 
     @allure.title('Добавление ингредиента в заказы увеличивает счетчик этого ингредиента')
     def test_drag_and_drop_ingredient_to_basket_increases_ingredient_count(self, driver):

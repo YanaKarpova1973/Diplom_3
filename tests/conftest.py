@@ -39,7 +39,6 @@ def make_user():
     yield _make_user
     UserRequests().delete_user(token=user['accessToken'])
 
-
 @pytest.fixture      # Создание payload для пользователя
 def create_user_payload():
 
