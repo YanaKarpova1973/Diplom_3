@@ -2,7 +2,6 @@ from pages.main_functionality_page import MainFunctionalityPage
 from pages.order_list_page import OrderListPage
 import allure
 from datas import URLS
-import time
 
 class TestMainFunctionality:
     @allure.title('Переход из Личного кабинета в Конструктор')
@@ -11,19 +10,17 @@ class TestMainFunctionality:
         page.open_page(URLS.ENTRANCE_PAGE_SUBDIRECTORY)
         page.wait_for_entrance_page_header_loaded()
         page.click_constructor()
-        main_page = MainFunctionalityPage(driver)
-        main_page.wait_for_main_page_header_loaded()
-        assert main_page.check_page()
+        page.wait_for_main_page_header_loaded()
+        assert page.check_page()
 
     @allure.title('Переход из Основной страницы в Ленту заказов')
     def test_redirect_to_orders_line(self, driver):
-        entrance_page = MainFunctionalityPage(driver)
-        entrance_page.open_page(URLS.ENTRANCE_PAGE_SUBDIRECTORY)
-        entrance_page.click_constructor()
-        entrance_page.check_page()
-        main_page = MainFunctionalityPage(driver)
-        main_page.wait_for_main_page_header_loaded()
-        main_page.click_orders_line()
+        page = MainFunctionalityPage(driver)
+        page.open_page(URLS.ENTRANCE_PAGE_SUBDIRECTORY)
+        page.click_constructor()
+        page.check_page()
+        page.wait_for_main_page_header_loaded()
+        page.click_orders_line()
         order_list = OrderListPage(driver)
         assert order_list.check_page(URLS.ORDER_LINE_SUBDIRECTORY)
 
@@ -55,12 +52,11 @@ class TestMainFunctionality:
 
     @allure.title('Авторизованный пользователь может оформить заказ')
     def test_logged_in_user_can_make_order(self, driver, make_user, create_user_payload):
-        entrance_page = MainFunctionalityPage(driver)
-        entrance_page.open_page(URLS.ENTRANCE_PAGE_SUBDIRECTORY)
+        page = MainFunctionalityPage(driver)
+        page.open_page(URLS.ENTRANCE_PAGE_SUBDIRECTORY)
         payload = create_user_payload(name='rand', password='rand', email='rand')
         user = make_user(data=payload)
-        entrance_page.fill_email_and_password_and_enter(email=payload["email"], password=payload["password"])
-        page = MainFunctionalityPage(driver)
+        page.fill_email_and_password_and_enter(email=payload["email"], password=payload["password"])
         page.wait_for_main_page_header_loaded()
         page.check_make_order_button()
         page.drag_n_drop_first_ingredient_to_basket()

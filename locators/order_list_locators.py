@@ -4,6 +4,7 @@ class OrdersListLocators:
 
     ORDER_LINE_HEADER = (By.XPATH, ".//h1[text()='Лента заказов']")  # Хедер страницы ленты заказов
     ORDER_LIST = (By.XPATH, "//p[text() = 'Лента Заказов']")  # Кнопка Лента Заказов на хедере главной страницы
+    ORDER_CONSTRUCTOR = (By.XPATH, "//p[text() = 'Конструктор']")  # Кнопка Конструктор на хедере главной страницы
     LIST_OF_ORDERS = (By.XPATH, "//main[@class='App_componentContainer__2JC2W']//div")
     LOCATOR_WITH_CHANGE_TEXT = "//p[text()='{}']"
     LOCATOR_WITH_CHANGE_CONTAIN = "//p[contains(text(), '{}')]"

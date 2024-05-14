@@ -3,8 +3,6 @@ from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
 import allure
 from locators.order_list_locators import OrdersListLocators
-from locators.main_functionality_locators import MainFunctionalityLocators
-
 
 class OrderListPage(BasePage):
 
@@ -39,7 +37,7 @@ class OrderListPage(BasePage):
 
     @allure.step('Переход в Конструктор')
     def click_constructor(self):
-        return self.click_element_located(MainFunctionalityLocators.MENU_CONSTRUCTOR)
+        return self.click_element_located(OrdersListLocators.ORDER_CONSTRUCTOR)
 
     @allure.step('Переход в секцию История заказов')
     def click_orders_history(self):

@@ -31,7 +31,7 @@ class BasePage:
 
     @allure.step('Поиск элемента с ожиданием')
     def find_element_waiting(self, locator):
-        WebDriverWait(self.driver, 3).until(expected_conditions.visibility_of_element_located(locator))
+        self.wait_for_element_loaded(locator)
         return self.driver.find_element(*locator)
 
     @allure.step('Поиск элемента c локатором без XPATH')

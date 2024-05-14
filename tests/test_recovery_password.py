@@ -24,9 +24,8 @@ class TestPasswordRecovery:
         email = payload["email"]
         password_recovery_page.enter_email(email)
         password_recovery_page.recover_button_click()
-        reset_password_page = RecoveryPasswordPage(driver)
-        reset_password_page.wait_for_recovery_page_header_loaded()
-        assert reset_password_page.check_page(subdir=URLS.RECOVER_PASSWORD_SUBDIRECTORY)
+        password_recovery_page.wait_for_recovery_page_header_loaded()
+        assert password_recovery_page.check_page(subdir=URLS.RECOVER_PASSWORD_SUBDIRECTORY)
 
     @allure.title('Нажатие по кнопке показать/скрыть пароль делает поле активным — подсвечивает его')
     def test_password_reset_gets_highlighted_field(self, driver, make_user, create_user_payload):
@@ -38,8 +37,7 @@ class TestPasswordRecovery:
         email = payload["email"]
         password_recovery_page.enter_email(email)
         password_recovery_page.recover_button_click()
-        reset_password_page = RecoveryPasswordPage(driver)
-        reset_password_page.wait_for_recovery_page_header_loaded()
-        reset_password_page.check_page(subdir=URLS.RESET_PASSWORD_SUBDIRECTORY)
-        reset_password_page.button_password_click()
-        assert reset_password_page.password_checking()
+        password_recovery_page.wait_for_recovery_page_header_loaded()
+        password_recovery_page.check_page(subdir=URLS.RESET_PASSWORD_SUBDIRECTORY)
+        password_recovery_page.button_password_click()
+        assert password_recovery_page.password_checking()

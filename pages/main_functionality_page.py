@@ -34,7 +34,6 @@ class MainFunctionalityPage(BasePage):
     def check_modal_opened(self):
         try:
             self.find_element_waiting(MainFunctionalityLocators.INGREDIENT_MODAL_XPATH)
-            #self.driver.find_element(By.XPATH, MainFunctionalityLocators.INGREDIENT_MODAL_NOT_XPATH)
         except NoSuchElementException:
             return False
         return True
@@ -54,7 +53,7 @@ class MainFunctionalityPage(BasePage):
 
     @allure.step('Получение значения счетчика ингредиента')
     def get_first_ingredient_counter_value(self):
-        return self.get_text_by_locator(MainFunctionalityLocators.FIRST_INGREDIENT_COUNTER_XPATH)       #self.driver.find_element(*MainFunctionalityLocators.FIRST_INGREDIENT_COUNTER_XPATH).text
+        return self.get_text_by_locator(MainFunctionalityLocators.FIRST_INGREDIENT_COUNTER_XPATH)
 
     @allure.step('Добавление первого ингредиента в корзину')
     def drag_n_drop_first_ingredient_to_basket(self):
@@ -67,7 +66,7 @@ class MainFunctionalityPage(BasePage):
     @allure.step('Получение значения ID заказа при его оформлении')
     def get_order_id_when_created(self):
         self.wait_until_element_not_present(MainFunctionalityLocators.TEMPORARY_ORDER_MODAL_HEADER)
-        return self.driver.find_element(By.XPATH, MainFunctionalityLocators.ORDER_ID_XPATH).text     #self.get_text_by_locator(MainFunctionalityLocators.ORDER_ID_XPATH)
+        return self.driver.find_element(By.XPATH, MainFunctionalityLocators.ORDER_ID_XPATH).text
 
     @allure.step('Создание заказа')
     def make_order(self):
